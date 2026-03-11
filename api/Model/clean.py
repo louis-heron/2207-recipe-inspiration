@@ -35,7 +35,7 @@ class Clean:
         No specific initialization required.
         """
 
-    def parse_row(self, row: List[str]) -> List[str]:
+    def parse_row(self, row: str) -> List[str]:
         """
         Parse a data column into Python list using ast.literal_eval.
 
@@ -111,7 +111,7 @@ class Clean:
             return False
         return True
 
-    def extract_valid_ingredients(self, row: List[str], min_frequency: int = DEFAULT_MIN_FREQUENCY) -> Set[str]:
+    def extract_valid_ingredients(self, row: str, min_frequency: int = DEFAULT_MIN_FREQUENCY) -> Set[str]:
         """
         Extract, clean, and validate ingredients from row, keeping frequent ones.
 
