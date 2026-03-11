@@ -13,17 +13,5 @@ data = data_manager.clean_dataset()
 selector = IngredientSelector(data)
 
 
-
 # --- Streamlit ---
 st.title("AI Sous-Chef")
-
-# Get list from user
-user_items = selector.render()
-
-if user_items:
-    # Format the list into a string for your model
-    query = selector.format_for_model(user_items)
-
-    # Run your existing recommendation logic
-    results = #recipe_model.get_recommendations(query)
-    st.write(results)
