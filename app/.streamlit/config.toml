@@ -1,0 +1,62 @@
+[server]
+enableStaticServing = true
+
+[theme]
+font = "Luciole"
+headingFont = "Atkinson Hyperlegible"
+
+[theme.light]
+backgroundColor = "F2EAE6"
+textColor = "8B2E27"
+
+[theme.dark]
+backgroundColor = "8B2E27"
+textColor = "F2EAE6"
+
+[[theme.fontFaces]]
+family = "Luciole"
+url = "app/static/fonts/Luciole_webfonts/Luciole-Regular/Luciole-Regular.woff2"
+weight = 400
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Luciole"
+url = "app/static/fonts/Luciole_webfonts/Luciole-Italic/Luciole-Italic.woff2"
+weight = 400
+style = "italic"
+
+[[theme.fontFaces]]
+family = "Luciole"
+url = "app/static/fonts/Luciole_webfonts/Luciole-Bold/Luciole-Bold.woff2"
+weight = 700
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Luciole"
+url = "app/static/fonts/Luciole_webfonts/Luciole-BoldItalic/Luciole-BoldItalic.woff2"
+weight = 700
+style = "italic"
+
+[[theme.fontFaces]]
+family = "Atkinson Hyperlegible"
+url = "app/static/fonts/atkinson-hyperlegible-main/fonts/webfonts/AtkinsonHyperlegible-Regular.woff2"
+weight = 400
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Atkinson Hyperlegible"
+url = "app/static/fonts/atkinson-hyperlegible-main/fonts/webfonts/AtkinsonHyperlegible-Italic.woff2"
+weight = 400
+style = "italic"
+
+[[theme.fontFaces]]
+family = "Atkinson Hyperlegible"
+url = "app/static/fonts/atkinson-hyperlegible-main/fonts/webfonts/AtkinsonHyperlegible-Bold.woff2"
+weight = 700
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Atkinson Hyperlegible"
+url = "app/static/fonts/atkinson-hyperlegible-main/fonts/webfonts/AtkinsonHyperlegible-BoldItalic.woff2"
+weight = 700
+style = "italic"
