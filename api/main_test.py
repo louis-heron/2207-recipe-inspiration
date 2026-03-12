@@ -10,7 +10,12 @@ data = data_manager.clean_dataset()
 #recipe_model.train()
 
 # 3. Use the MULTISELECT Class
-selector = IngredientSelector(data)
+selector = IngredientSelector()
+user_input = selector.render()
+
+if user_input:
+    formatted_input = selector.format_for_model(user_input)
+    st.info(f"Ready for Vectorizer: {formatted_input}")
 
 
 # --- Streamlit ---
