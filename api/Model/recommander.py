@@ -2,34 +2,30 @@
 Recommander wrapper with strict typing via Protocol.
 """
 
-from typing import Protocol, runtime_checkable, Optional, List
+from typing import Any, Protocol, runtime_checkable, Optional, List
 import numpy as np
 import pandas as pd
 from numpy.typing import NDArray
 
+TOP_DEFAULT: int = 5
+
 @runtime_checkable
 class PredictModel(Protocol):
     """
-    Protocol for prediction models implementing fit/predict interface.
+    Protocol for prediction models implementing fit/kneighbors interface.
+    Le `/` rend les paramètres positionnels uniquement : les noms n'ont pas à correspondre.
     """
 
-    def fit(self, features: NDArray[np.float64], target: Optional[NDArray[np.int64]] = None) -> 'PredictModel':
-        """
-        Fit model on feature matrix.
-        """
-        raise NotImplementedError
+    def fit(self, X: Any, /, y: Any = None) -> Any:
+        """Fit model on feature matrix."""
 
-    def predict_to_users(self, features: NDArray[np.float64]) -> List[int]:
-        """
-        Return sorted indices of nearest neighbours.
-        """
-        return []
+    def kneighbors(self, X: Any, /) -> Any:
+        """Return (distances, indices) of nearest neighbours."""
 
 class Recommander:
     """
     Production wrapper enforcing PredictModel protocol.
     """
-    TOP_DEFAULT = 5
 
     def __init__(self, model: PredictModel, recipes: pd.DataFrame, clean_column: str) -> None:
         """
@@ -40,7 +36,9 @@ class Recommander:
         self.clean_column = clean_column
         self.is_fitted: bool = False
 
-    def fit(self, features: NDArray[np.float64], target: Optional[NDArray[np.int64]] = None) -> None:
+    def fit(
+        self, features: NDArray[np.float64], target: Optional[NDArray[np.int64]] = None
+    ) -> None:
         """
         Train wrapped model.
         """
@@ -59,15 +57,16 @@ class Recommander:
         if not self.is_fitted:
             raise ValueError("Model not fitted. Call fit() first.")
 
-        _, indices = self.model.predict(features)[:top_k]
-        cosine_scores = self.model.predict_scores(features)[:top_k]
+        distances, indices_matrix = self.model.kneighbors(features)
+        indices = indices_matrix[0][:top_k]
+        cosine_scores = distances[0][:top_k]
         query_set = set(ingredients)
         recipes: pd.DataFrame = self.recipes
 
         scored: List[tuple[int, float]] = []
         for idx, cosine in zip(indices, cosine_scores):
             recipe_idx: int = int(idx)
-            recipe = recipes.iloc[recipe_idx]
+            recipe = recipes.iloc[recipe_idx] # type: ignore
             recipe_str: str = recipe[self.clean_column]
             recipe_set = set(recipe_str.split(','))
             score = float(cosine) + self.coverage(query_set, recipe_set)
