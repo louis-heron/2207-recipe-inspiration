@@ -67,8 +67,8 @@ class Recommander:
         for idx, cosine in zip(indices, cosine_scores):
             recipe_idx: int = int(idx)
             recipe = recipes.iloc[recipe_idx] # type: ignore
-            recipe_str: str = recipe[self.clean_column]
-            recipe_set = set(recipe_str.split(','))
+            recipe_ing = recipe[self.clean_column]
+            recipe_set = set(recipe_ing) if isinstance(recipe_ing, list) else set(str(recipe_ing).split(','))
             score = float(cosine) + self.coverage(query_set, recipe_set)
             scored.append((recipe_idx, score))
 

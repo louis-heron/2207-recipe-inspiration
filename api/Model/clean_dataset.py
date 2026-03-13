@@ -46,7 +46,8 @@ class Clean():
 
         #Call the clean_ingredients functions
         df = pd.read_csv(self.file_path)
-        self.data = CleanIng.process_dataframe(df, col_raw='NER', col_clean='NER_clean')
+        cleaner = CleanIng()
+        self.data = cleaner.process_dataframe(df=df, col_raw='NER', col_clean='NER_clean')
 
     def clean_text_field(self, text, url_pat):
         """Removes URLs and cleans whitespace from strings."""
