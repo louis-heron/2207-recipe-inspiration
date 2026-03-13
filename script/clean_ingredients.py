@@ -12,7 +12,7 @@ from collections import Counter
 from typing import List, Set
 import pandas as pd
 
-from Enums import brands, incorrect_ingredients, dropped_ing, minimum
+from script.Enums import brands, incorrect_ingredients, dropped_ing, minimum
 
 class CleanIng():
     """
@@ -95,7 +95,7 @@ class CleanIng():
         df = df[df[col_clean].map(len) >= self.MIN_INGREDIENTS]
 
         # Deduplicate based on the content of the ingredients
-        df['temp_hash'] = df[col_].apply(lambda x: tuple(sorted(x)))
+        df['temp_hash'] = df[col_clean].apply(lambda x: tuple(sorted(x)))
         df = df.drop_duplicates('temp_hash').drop(columns=['temp_hash'])
 
         return df.reset_index(drop=True)
