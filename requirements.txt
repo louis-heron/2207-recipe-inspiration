@@ -7,4 +7,6 @@ pandas
 matplotlib
 seaborn
 scikit-learn
+python-dotenv
 streamlit
+fastapi
