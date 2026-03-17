@@ -1,0 +1,41 @@
+/* ── Footer ───────────────────────────────────────────────────────────────── */
+#app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--st-background-color);
+  color: var(--st-text-color);
+  font-family: var(--st-font), system-ui, sans-serif;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+#app-footer p {
+  margin: 0;
+}
+
+#app-footer ul {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#app-footer a {
+  color: var(--st-text-color);
+  text-decoration: underline;
+}
+
+#app-footer a::after {
+  content: "\00a0\2197";
+  font-size: 0.85em;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#app-footer a:focus-visible {
+  outline: 2px solid var(--st-text-color);
+  outline-offset: 2px;
+}
