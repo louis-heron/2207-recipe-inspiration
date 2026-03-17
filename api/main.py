@@ -7,12 +7,13 @@ import pickle
 import sys
 from pathlib import Path
 from typing import Dict, List
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from typing_extensions import TypedDict
 from pydantic import BaseModel
 import api.Model.recommander as _recommander_mod
 import api.Model.vectorizer as _vectorizer_mod
+from api.Vision.detector import IngredientDetector
 
 
 class RecipeResult(TypedDict):
@@ -47,10 +48,11 @@ app.add_middleware(
 BASE_DIR = Path(__file__).parent
 model_path = BASE_DIR / "Model" / "model.pkl"
 vectorizer_path = BASE_DIR / "Model" / "vectorizer.pkl"
+vision_model_path = BASE_DIR / "Vision" / "best.pt"
 
 app.state.model = pickle.load(open(model_path, "rb"))
 app.state.vectorizer = pickle.load(open(vectorizer_path, "rb"))
-
+app.state.detector = IngredientDetector(str(vision_model_path))
 
 @app.get("/", tags=["health"])
 def root() -> Dict[str, str]:
@@ -79,6 +81,15 @@ class PredictRequest(BaseModel):
     ingredients: List[str]
     num_recipes: int = 5
 
+@app.post("/detect-ingredients", tags=["vision"])
+async def detect_ingredients(file: UploadFile = File(...)):
+    """Upload a JPEG/PNG to get a list of detected ingredients."""
+    try:
+        contents = await file.read()
+        ingredients = app.state.detector.detect(contents)
+        return {"detected_ingredients": ingredients}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/predict", tags=["recommendations"], response_model=Dict[str, List[RecipeResult]])
 def predict(request: PredictRequest) -> Dict[str, List[RecipeResult]]:
