@@ -1,0 +1,10 @@
+{
+  "name": "recipe-components",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "header/frontend",
+    "footer/frontend",
+    "team/frontend"
+  ]
+}
