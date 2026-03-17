@@ -4,7 +4,7 @@ from pathlib import Path
 import io
 from PIL import Image
 
-model_path = "Vision/best.pt"
+model_path = Path(__file__).parent / "best.pt"
 
 class IngredientDetector:
     def __init__(self):
@@ -14,7 +14,7 @@ class IngredientDetector:
     def detect(self, image_bytes):
         # Run results
         image = Image.open(io.BytesIO(image_bytes))
-        results = self.model(image_bytes)
+        results = self.model(image)
 
         # Extract unique class names detected
         detected_ingredients = []

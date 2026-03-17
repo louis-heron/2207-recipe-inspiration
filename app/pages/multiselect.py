@@ -6,7 +6,7 @@ class IngredientSelector:
     Manages the logic for the Streamlit multiselect widget
     using a pre-processed parquet file for speed.
     """
-    def __init__(self, file_path='ingredients.parquet'):
+    def __init__(self, file_path='../../ingredients.parquet'):
         self.file_path = file_path
         self.options = []
 
