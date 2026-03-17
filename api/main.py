@@ -83,13 +83,18 @@ class PredictRequest(BaseModel):
 
 @app.post("/detect-ingredients", tags=["vision"])
 async def detect_ingredients(file: UploadFile = File(...)):
-    """Upload a JPEG/PNG to get a list of detected ingredients."""
+    # Basic validation: ensure it's an image
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="File must be an image.")
+
     try:
         contents = await file.read()
+        # Pass the bytes to our updated detector
         ingredients = app.state.detector.detect(contents)
         return {"detected_ingredients": ingredients}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # Returning the error string helps you debug in the Streamlit UI
+        raise HTTPException(status_code=500, detail=f"Model Inference Error: {str(e)}")
 
 @app.post("/predict", tags=["recommendations"], response_model=Dict[str, List[RecipeResult]])
 def predict(request: PredictRequest) -> Dict[str, List[RecipeResult]]:
