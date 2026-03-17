@@ -1,3 +1,19 @@
 raw_data/
 api/.env
 api/Model/*.pkl
+
+# Node
+app/components/node_modules/
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build artifacts
+app/components/*/frontend/node_modules/
+
+# OS
+.DS_Store

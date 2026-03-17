@@ -1,0 +1,40 @@
+main#home {
+  max-width: 65ch;
+  padding: 1.5rem;
+}
+
+main#home h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  color: var(--st-text-color);
+  font-family: var(--st-heading-font), var(--st-font), system-ui, sans-serif;
+}
+
+main#home p {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  color: var(--st-text-color);
+  font-family: var(--st-font), system-ui, sans-serif;
+}
+
+.cta-link {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 2rem;
+  background: var(--st-text-color);
+  color: var(--st-background-color);
+  font-family: var(--st-heading-font), var(--st-font), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--st-base-radius, 0.25rem);
+  transition: opacity 0.15s ease;
+}
+
+.cta-link:hover,
+.cta-link:focus-visible {
+  outline: 2px solid var(--st-text-color);
+  outline-offset: 3px;
+}

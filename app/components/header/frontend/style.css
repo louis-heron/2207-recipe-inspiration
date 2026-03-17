@@ -1,0 +1,62 @@
+/* ── Header ───────────────────────────────────────────────────────────────── */
+#app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--st-background-color, #E1E1E1);
+  color: var(--st-text-color, #333333);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Logo ── */
+#app-header .logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+#app-header .logo-link svg {
+  height: 3.5rem;
+  width: auto;
+  color: var(--st-text-color);
+}
+
+#app-header .logo-link svg path,
+#app-header .logo-link svg g {
+  fill: currentColor;
+}
+
+/* ── Nav ── */
+#app-header nav ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#app-header .nav-link {
+  font-family: var(--st-heading-font), var(--st-font), system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--st-text-color);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  transition: border-color 0.15s ease;
+}
+
+#app-header .nav-link:hover,
+#app-header .nav-link:focus-visible {
+  outline: 2px solid var(--st-text-color);
+  outline-offset: 2px;
+}
+
+#app-header .nav-link.active {
+  font-weight: 700;
+  border-bottom-color: var(--st-text-color);
+}
