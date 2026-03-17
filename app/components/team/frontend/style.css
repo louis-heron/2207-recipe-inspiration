@@ -1,0 +1,334 @@
+#team-orbit {
+  --hex-clip: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  --hex-w:    clamp(10rem, 16vw, 20rem);
+  --hex-h:    calc(var(--hex-w) * 0.866);
+  --R-orbit:  calc(var(--hex-w) + 0.5rem);
+
+  position: relative;
+  width: 100%;
+  max-width: calc(var(--R-orbit) * 2 + var(--hex-w));
+  height: calc(var(--R-orbit) * 2 + var(--hex-h));
+  margin: .5rem auto;
+}
+
+ul.hex-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  inset: 0;
+}
+
+@keyframes orbit {
+  0%     { transform: translate(var(--R-orbit), 0); }
+  16.67% { transform: translate(calc(var(--R-orbit) *  0.5),  calc(var(--R-orbit) *  0.866)); }
+  33.33% { transform: translate(calc(var(--R-orbit) * -0.5),  calc(var(--R-orbit) *  0.866)); }
+  50%    { transform: translate(calc(var(--R-orbit) * -1),    0); }
+  66.67% { transform: translate(calc(var(--R-orbit) * -0.5),  calc(var(--R-orbit) * -0.866)); }
+  83.33% { transform: translate(calc(var(--R-orbit) *  0.5),  calc(var(--R-orbit) * -0.866)); }
+  100%   { transform: translate(var(--R-orbit), 0); }
+}
+
+li.hex-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: calc(var(--hex-h) / -2);
+  margin-left: calc(var(--hex-w) / -2);
+  width: var(--hex-w);
+  animation: orbit 12s linear infinite;
+  animation-delay: var(--delay);
+  cursor: pointer;
+}
+
+li.hex-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  clip-path: var(--hex-clip);
+  background: var(--st-text-color);
+  z-index: -1;
+}
+
+#team-orbit:has(li:hover) li,
+#team-orbit:has(li:focus-within) li {
+  animation-play-state: paused;
+}
+
+li.hex-wrapper figure {
+  position: relative;
+  margin: 0;
+  width: var(--hex-w);
+  height: var(--hex-h);
+  perspective: 56rem;
+}
+
+li.hex-wrapper figure::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: var(--hex-clip);
+  background-color: var(--color, var(--st-primary-color));
+  background-image: var(--photo, none);
+  background-size: cover;
+  background-position: center;
+  transform: rotateY(0);
+  backface-visibility: hidden;
+  transition: transform 0.6s ease, filter 0.3s ease;
+}
+
+.member-name {
+  position: absolute;
+  bottom: 2%;
+  left: 25%;
+  right: 25%;
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(0.9rem, 2.5vmin, 1.2rem);
+  line-height: 1.5;
+  text-align: center;
+  color: var(--st-background-color);
+  text-shadow:
+    -1px -1px 0 var(--st-text-color),
+     0   -1px 0 var(--st-text-color),
+     1px -1px 0 var(--st-text-color),
+    -1px  0   0 var(--st-text-color),
+     1px  0   0 var(--st-text-color),
+    -1px  1px 0 var(--st-text-color),
+     0    1px 0 var(--st-text-color),
+     1px  1px 0 var(--st-text-color);
+  transform: rotateY(0);
+  backface-visibility: hidden;
+  transition: transform 0.6s ease;
+  z-index: 1;
+}
+
+li.hex-wrapper figcaption {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--hex-clip);
+  background: var(--st-text-color);
+  transform: rotateY(-180deg);
+  backface-visibility: hidden;
+  transition: transform 0.6s ease, filter 0.3s ease;
+  font-family: var(--st-font), system-ui, sans-serif;
+}
+
+.member-quote {
+  position: absolute;
+  top: 50%;
+  left: 26%;
+  right: 26%;
+  transform: translateY(-50%);
+  margin: 0;
+  font-size: clamp(0.85rem, 2vmin, 1.05rem);
+  line-height: 1.5;
+  text-align: start;
+  color: var(--st-background-color);
+}
+
+.member-quote footer {
+  margin-top: 0.3em;
+  font-size: 0.85em;
+  text-align: end;
+}
+
+.member-linkedin {
+  position: absolute;
+  bottom: 0;
+  left: 28%;
+  right: 28%;
+  font-size: clamp(0.7rem, 1.6vmin, 0.9rem);
+  color: var(--st-background-color);
+  text-decoration: underline;
+}
+
+.member-linkedin::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.3em;
+  vertical-align: middle;
+  background-image: image-set(
+    url('/app/static/img/linkedin.avif') type('image/avif'),
+    url('/app/static/img/linkedin.webp') type('image/webp'),
+    url('/app/static/img/linkedin.png')  type('image/png')
+  );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.member-linkedin::after {
+  content: "\00a0\2197";
+  display: inline-block;
+  font-size: 0.85em;
+  text-decoration: none;
+}
+
+.member-linkedin:focus-visible {
+  outline: 2px solid var(--st-background-color);
+  outline-offset: 2px;
+}
+
+li.hex-wrapper:hover figure::before,
+li.hex-wrapper:focus-within figure::before,
+li.hex-wrapper:hover .member-name,
+li.hex-wrapper:focus-within .member-name {
+  transform: rotateY(180deg);
+}
+
+li.hex-wrapper:hover figcaption,
+li.hex-wrapper:focus-within figcaption {
+  transform: rotateY(0deg);
+}
+
+#team-orbit:has(li:hover) li:not(:hover) figure::before,
+#team-orbit:has(li:hover) li:not(:hover) figcaption,
+#team-orbit:has(li:focus-within) li:not(:focus-within) figure::before,
+#team-orbit:has(li:focus-within) li:not(:focus-within) figcaption {
+  filter: brightness(0.35) grayscale(0.9);
+}
+
+li.hex-wrapper:focus-visible {
+  outline: none;
+}
+
+li.hex-wrapper:focus-visible figcaption {
+  filter: drop-shadow(0 0 6px var(--st-text-color))
+          drop-shadow(0 0 3px var(--st-text-color));
+}
+
+.hex-central {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--hex-w);
+  height: var(--hex-h);
+  margin: 0;
+}
+
+.hex-central::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  clip-path: var(--hex-clip);
+  background: var(--st-text-color);
+}
+
+.hex-central figcaption {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--hex-clip);
+  background: var(--st-background-color);
+  color: var(--st-text-color);
+  font-family: var(--st-heading-font), var(--st-font), system-ui, sans-serif;
+  font-weight: 700;
+  z-index: 1;
+}
+
+.hex-central figcaption svg {
+  position: absolute;
+  top: 5%;
+  left: 17.5%;
+  width: 60%;
+  height: auto;
+}
+
+.hex-central figcaption p {
+  position: absolute;
+  bottom: 3%;
+  left: 25%;
+  right: 25%;
+  margin: 0;
+  font-size: clamp(0.9rem, 2.5vmin, 1.2rem);
+  line-height: 1.5;
+  text-align: center;
+  color: var(--st-background-color);
+  text-shadow:
+    -1px -1px 0 var(--st-text-color),
+     0   -1px 0 var(--st-text-color),
+     1px -1px 0 var(--st-text-color),
+    -1px  0   0 var(--st-text-color),
+     1px  0   0 var(--st-text-color),
+    -1px  1px 0 var(--st-text-color),
+     0    1px 0 var(--st-text-color),
+     1px  1px 0 var(--st-text-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #team-orbit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    height: auto;
+    max-width: 100%;
+    position: static;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .hex-central {
+    position: static;
+    transform: none;
+    flex-shrink: 0;
+  }
+
+  ul.hex-list {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  li.hex-wrapper {
+    position: static;
+    margin: 0;
+    animation: none;
+  }
+
+  li.hex-wrapper figure::before,
+  li.hex-wrapper .member-name,
+  li.hex-wrapper figcaption,
+  li.hex-wrapper:hover figure::before,
+  li.hex-wrapper:focus-within figure::before,
+  li.hex-wrapper:hover .member-name,
+  li.hex-wrapper:focus-within .member-name,
+  li.hex-wrapper:hover figcaption,
+  li.hex-wrapper:focus-within figcaption {
+    transform: none;
+    transition: none;
+    backface-visibility: visible;
+  }
+
+  li.hex-wrapper figcaption {
+    background: transparent;
+  }
+
+  .member-name {
+    top: 10%;
+    bottom: auto;
+  }
+
+  .member-quote {
+    display: none;
+  }
+
+  .member-linkedin {
+    bottom: 6%;
+    color: var(--st-text-color);
+    text-shadow:
+      -1px -1px 0 var(--st-text-color),
+       0   -1px 0 var(--st-text-color),
+       1px -1px 0 var(--st-text-color),
+      -1px  0   0 var(--st-text-color),
+       1px  0   0 var(--st-text-color),
+      -1px  1px 0 var(--st-text-color),
+       0    1px 0 var(--st-text-color),
+       1px  1px 0 var(--st-text-color);
+    font-weight: 700;
+  }
+}

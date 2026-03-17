@@ -1,0 +1,12 @@
+[MAIN]
+init-hook=
+    import sys;
+    sys.path.insert(0, 'api/Model');
+    sys.path.insert(0, 'api')
+
+[FORMAT]
+max-line-length=100
+
+[BASIC]
+const-rgx=([A-Z_][A-Z0-9_]*|[a-z_][a-z0-9_]*)$
+variable-rgx=([A-Z_][A-Z0-9_]*|[a-z_][a-z0-9_]*)$
