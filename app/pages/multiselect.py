@@ -28,20 +28,32 @@ class IngredientSelector:
         if not self.options:
             self.options = self.load_options()
 
-        # Ensure any detected ingredients (set via session_state) are present in options
-        detected = st.session_state.get("ing_selector", [])
-        extra = [item for item in detected if item not in self.options]
+        if "ing_selector_gen" not in st.session_state:
+            st.session_state.ing_selector_gen = 0
+
+        widget_key = f"ing_selector_{st.session_state.ing_selector_gen}"
+
+        # Pre-populate with detected ingredients on first render of this generation
+        if widget_key not in st.session_state:
+            pre = st.session_state.get("ing_detected", [])
+            if pre:
+                st.session_state[widget_key] = pre
+
+        # Ensure any selected ingredients are present in options
+        selected = st.session_state.get(widget_key, [])
+        extra = [item for item in selected if item not in self.options]
         options = extra + self.options if extra else self.options
 
         if st.button("Clear All Selection"):
-            st.session_state.pop("ing_selector", None)
+            st.session_state.ing_selector_gen += 1
+            st.session_state.pop("ing_detected", None)
             st.rerun()
 
         selection = st.multiselect(
             label=label,
             options=options,
             placeholder=placeholder,
-            key="ing_selector",
+            key=widget_key,
             help=f"Searching through {len(options)} ingredients."
         )
 
