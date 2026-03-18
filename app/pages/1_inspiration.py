@@ -3,6 +3,8 @@ import requests
 from PIL import Image
 from pages.multiselect import IngredientSelector
 
+API_URL = st.secrets["API_URL"]
+
 st.set_page_config(page_title="AI Recipe Chef", layout="wide")
 st.title("🍳 AI Recipe Recommender")
 
@@ -24,7 +26,7 @@ with col1:
             # Call the Detection API
             #files = {"file": uploaded_file.getvalue()}
             files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
-            response = requests.post("http://localhost:8000/detect-ingredients", files=files)
+            response = requests.post(f"{API_URL}/detect-ingredients", files=files)
 
             if response.status_code == 200:
                 st.session_state.detected = response.json()["detected_ingredients"]
@@ -56,7 +58,7 @@ with col2:
 
             # Call the Recommendation API
             payload = {"ingredients": selected_ingredients, "num_recipes": num_res}
-            res = requests.post("http://localhost:8000/predict", json=payload)
+            res = requests.post(f"{API_URL}/predict", json=payload)
 
             if res.status_code == 200:
                 st.session_state["recipes"] = res.json()["recipes"]
