@@ -1,15 +1,11 @@
 function r(n) {
   return n.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
-const p = ["-9s", "-1s", "-5s"], u = ({ data: n, parentElement: s }) => {
+const i = ["-9s", "-1s", "-5s"], p = ({ data: n, parentElement: s }) => {
   const o = n.members ?? [], a = s.querySelector(".hex-list");
   a && o.forEach((e, l) => {
-    const c = p[l] ?? `${-(l * 12 / o.length) % 12}s`, t = document.createElement("li");
-    if (t.className = "hex-wrapper", t.setAttribute("tabindex", "0"), t.style.setProperty("--delay", c), e.photo_url) {
-      const i = e.photo_url.replace(/\.[^.]+$/, "");
-      t.style.setProperty("--photo", `url('${i}.webp')`);
-    }
-    t.innerHTML = `
+    const c = i[l] ?? `${-(l * 12 / o.length) % 12}s`, t = document.createElement("li");
+    t.className = "hex-wrapper", t.setAttribute("tabindex", "0"), t.style.setProperty("--delay", c), e.photo_url && (()=>{const d=document.createElement("style");d.textContent=`#team-orbit li.hex-wrapper:nth-child(${l+1}) figure::before { background-image: url('${e.photo_url}'); }`;s.appendChild(d);})(), t.innerHTML = `
       <figure>
         <p class="member-name">${r(e.name)}</p>
         <figcaption>
@@ -30,5 +26,5 @@ const p = ["-9s", "-1s", "-5s"], u = ({ data: n, parentElement: s }) => {
   });
 };
 export {
-  u as default
+  p as default
 };

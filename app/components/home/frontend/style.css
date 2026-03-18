@@ -28,7 +28,7 @@ main#home::after {
   grid-row: 1 / span 10;
   width: 32rem;
   aspect-ratio: 1;
-  background-image: url('/app/static/img/head_chef.webp');
+  background-image: var(--head-chef-photo, none);
   background-size: cover;
   background-position: bottom center;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);

@@ -30,8 +30,7 @@ with col1:
 
             if response.status_code == 200:
                 st.session_state.detected = response.json()["detected_ingredients"]
-                # Update the multiselect state immediately
-                st.session_state.ing_selector = st.session_state.detected
+                st.session_state.ing_detected = st.session_state.detected
             else:
                 st.error("Detection failed.")
 

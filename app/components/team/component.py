@@ -1,4 +1,5 @@
 """Team section — hexagonal orbit with flip effect."""
+import base64
 from pathlib import Path
 from typing import TypedDict
 
@@ -15,12 +16,19 @@ class TeamMember(TypedDict):
 FRONTEND = Path(__file__).parent / "frontend"
 JS_PATH = FRONTEND / "dist" / "index.mjs"
 CSS_PATH = FRONTEND / "style.css"
-_LOGO_SVG = (Path(__file__).parent.parent.parent / "static" / "img" / "logo.svg").read_text(encoding="utf-8")
+_IMG_DIR = Path(__file__).parent.parent.parent / "static" / "img"
+_LOGO_SVG = (_IMG_DIR / "logo.svg").read_text(encoding="utf-8")
 
 if not JS_PATH.exists():
     raise FileNotFoundError(
         f"Team component not compiled. Run : cd {FRONTEND} && npm run build"
     )
+
+_linkedin_b64 = "data:image/png;base64," + base64.b64encode((_IMG_DIR / "linkedin.png").read_bytes()).decode()
+_css = CSS_PATH.read_text(encoding="utf-8").replace(
+    "url('/app/static/img/linkedin.png')",
+    f"url('{_linkedin_b64}')",
+)
 
 team_component = components_v2.component(
     "team",
@@ -35,7 +43,7 @@ team_component = components_v2.component(
           <ul class="hex-list"></ul>
         </section>
     """,
-    css=CSS_PATH.read_text(encoding="utf-8"),
+    css=_css,
     js=JS_PATH.read_text(encoding="utf-8"),
 )
 

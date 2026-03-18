@@ -28,9 +28,17 @@ class IngredientSelector:
         if not self.options:
             self.options = self.load_options()
 
-        # Ensure any detected ingredients (set via session_state) are present in options
-        detected = st.session_state.get("ing_selector", [])
-        extra = [item for item in detected if item not in self.options]
+        # Apply clear or pre-populate BEFORE the widget is instantiated
+        if st.session_state.pop("_ing_clear", False):
+            st.session_state["ing_selector"] = []
+        elif "ing_selector" not in st.session_state:
+            pre = st.session_state.get("ing_detected", [])
+            if pre:
+                st.session_state["ing_selector"] = pre
+
+        # Ensure selected items are present in options
+        selected = st.session_state.get("ing_selector", [])
+        extra = [item for item in selected if item not in self.options]
         options = extra + self.options if extra else self.options
 
         selection = st.multiselect(
@@ -42,7 +50,7 @@ class IngredientSelector:
         )
 
         if st.button("Clear All Selection"):
-            st.session_state.ing_selector = []
+            st.session_state["_ing_clear"] = True
             st.rerun()
 
         return selection
