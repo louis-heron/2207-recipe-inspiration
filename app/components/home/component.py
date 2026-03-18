@@ -7,6 +7,12 @@ import streamlit.components.v2 as components_v2
 FRONTEND = Path(__file__).parent / "frontend"
 _IMG_DIR = Path(__file__).parent.parent.parent / "static" / "img"
 
+_head_chef_b64 = "data:image/png;base64," + base64.b64encode((_IMG_DIR / "head_chef.png").read_bytes()).decode()
+_css = (FRONTEND / "style.css").read_text(encoding="utf-8").replace(
+    "var(--head-chef-photo, none)",
+    f"url('{_head_chef_b64}')",
+)
+
 home_component = components_v2.component(
     "home",
     html="""
@@ -28,20 +34,10 @@ home_component = components_v2.component(
           <a href="/inspiration" class="cta-link">Get inspired</a>
         </main>
     """,
-    css=(FRONTEND / "style.css").read_text(encoding="utf-8"),
-    js="""
-const renderer = ({ data, parentElement }) => {
-  if (data.head_chef_url) {
-    const el = parentElement.querySelector('main#home');
-    if (el) el.style.setProperty('--head-chef-photo', 'url("' + data.head_chef_url + '")');
-  }
-};
-export default renderer;
-""",
+    css=_css,
+    js="",
 )
 
 
 def home_section(key: str | None = None) -> None:
-    b64 = base64.b64encode((_IMG_DIR / "head_chef.png").read_bytes()).decode()
-    head_chef_url = "data:image/png;base64," + b64
-    home_component(data={"head_chef_url": head_chef_url}, key=key, isolate_styles=False)
+    home_component(data={}, key=key, isolate_styles=False)
