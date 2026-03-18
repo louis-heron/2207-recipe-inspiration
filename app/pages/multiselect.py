@@ -1,12 +1,15 @@
 import streamlit as st
 import pandas as pd
+from pathlib import Path
+
+PARQUET_PATH = Path(__file__).parent.parent.parent / "ingredients.parquet"
 
 class IngredientSelector:
     """
     Manages the logic for the Streamlit multiselect widget
     using a pre-processed parquet file for speed.
     """
-    def __init__(self, file_path='../../ingredients.parquet'):
+    def __init__(self, file_path=str(PARQUET_PATH)):
         self.file_path = file_path
         self.options = []
 
@@ -25,14 +28,17 @@ class IngredientSelector:
         if not self.options:
             self.options = self.load_options()
 
-        # Layout: Multiselect takes most space, Button sits next to it or below
-        # Using a unique key 'ing_selector' to control the state
+        # Ensure any detected ingredients (set via session_state) are present in options
+        detected = st.session_state.get("ing_selector", [])
+        extra = [item for item in detected if item not in self.options]
+        options = extra + self.options if extra else self.options
+
         selection = st.multiselect(
             label=label,
-            options=self.options,
+            options=options,
             placeholder=placeholder,
             key="ing_selector",
-            help=f"Searching through {len(self.options)} ingredients."
+            help=f"Searching through {len(options)} ingredients."
         )
 
         if st.button("Clear All Selection"):

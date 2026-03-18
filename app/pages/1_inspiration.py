@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 from PIL import Image
-from multiselect import IngredientSelector
+from pages.multiselect import IngredientSelector
 
 st.set_page_config(page_title="AI Recipe Chef", layout="wide")
 st.title("🍳 AI Recipe Recommender")
