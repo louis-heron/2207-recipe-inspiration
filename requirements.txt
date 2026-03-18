@@ -4,6 +4,9 @@ ipdb
 jupyterlab
 numpy
 pandas
+pyarrow
+Pillow
+requests
 matplotlib
 seaborn
 scikit-learn

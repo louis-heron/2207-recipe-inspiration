@@ -33,6 +33,10 @@ class IngredientSelector:
         extra = [item for item in detected if item not in self.options]
         options = extra + self.options if extra else self.options
 
+        if st.button("Clear All Selection"):
+            st.session_state.pop("ing_selector", None)
+            st.rerun()
+
         selection = st.multiselect(
             label=label,
             options=options,
@@ -40,10 +44,6 @@ class IngredientSelector:
             key="ing_selector",
             help=f"Searching through {len(options)} ingredients."
         )
-
-        if st.button("Clear All Selection"):
-            st.session_state.ing_selector = []
-            st.rerun()
 
         return selection
 
