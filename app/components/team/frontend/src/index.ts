@@ -35,7 +35,9 @@ const Team: FrontendRenderer<Record<string, never>, TeamData> = ({ data, parentE
     li.style.setProperty("--delay", delay)
 
     if (member.photo_url) {
-      li.style.setProperty("--photo", `url('${member.photo_url}')`)
+      const style = document.createElement("style")
+      style.textContent = `#team-orbit li.hex-wrapper:nth-child(${i + 1}) figure::before { background-image: url('${member.photo_url}'); }`
+      parentElement.appendChild(style)
     }
 
     li.innerHTML = `
