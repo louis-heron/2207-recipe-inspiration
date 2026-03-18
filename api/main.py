@@ -52,7 +52,7 @@ vision_model_path = BASE_DIR / "Vision" / "best.pt"
 
 app.state.model = pickle.load(open(model_path, "rb"))
 app.state.vectorizer = pickle.load(open(vectorizer_path, "rb"))
-app.state.detector = IngredientDetector(str(vision_model_path))
+app.state.detector = IngredientDetector()
 
 @app.get("/", tags=["health"])
 def root() -> Dict[str, str]:
