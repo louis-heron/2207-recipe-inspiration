@@ -150,7 +150,7 @@ li.hex-wrapper figcaption {
   height: 1em;
   margin-right: 0.3em;
   vertical-align: middle;
-  background-image: url('/app/static/img/linkedin.webp');
+  background-image: url('/app/static/img/linkedin.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }

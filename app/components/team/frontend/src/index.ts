@@ -35,8 +35,7 @@ const Team: FrontendRenderer<Record<string, never>, TeamData> = ({ data, parentE
     li.style.setProperty("--delay", delay)
 
     if (member.photo_url) {
-      const base = member.photo_url.replace(/\.[^.]+$/, "")
-      li.style.setProperty("--photo", `url('${base}.webp')`)
+      li.style.setProperty("--photo", `url('${member.photo_url}')`)
     }
 
     li.innerHTML = `
