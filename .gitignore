@@ -1,6 +1,7 @@
 raw_data/
 api/.env
 api/Model/*.pkl
+api/data
 
 # Node
 app/components/node_modules/
@@ -14,6 +15,9 @@ venv/
 
 # Build artifacts
 app/components/*/frontend/node_modules/
+
+# Streamlit secrets
+app/.streamlit/secrets.toml
 
 # OS
 .DS_Store

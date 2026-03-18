@@ -43,8 +43,9 @@ _NAV_LINKS = [
 home = st.Page("pages/0_home.py", title="Home")
 inspiration = st.Page("pages/1_inspiration.py", title="Inspiration")
 team = st.Page("pages/2_team.py", title="Team")
+recipes = st.Page("pages/3_recipes.py", title="Recipes")
 
-pages = st.navigation([home, inspiration, team], position="hidden")
+pages = st.navigation([home, inspiration, team, recipes], position="hidden")
 
 _LOGO_SVG = (Path(__file__).parent / "static" / "img" / "logo.svg").read_text(encoding="utf-8")
 
