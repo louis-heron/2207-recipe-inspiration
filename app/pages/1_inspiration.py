@@ -59,10 +59,8 @@ with col2:
             res = requests.post("http://localhost:8000/predict", json=payload)
 
             if res.status_code == 200:
-                recipes = res.json()["recipes"]
-                for r in recipes:
-                    with st.expander(f"⭐ {r['title']}"):
-                        st.write("**Ingredients:**", r['ingredients'])
-                        st.write("**Directions:**", r['directions'])
+                st.session_state["recipes"] = res.json()["recipes"]
+                st.session_state["ingredients_used"] = selected_ingredients
+                st.switch_page("pages/3_recipes.py")
             else:
                 st.error("Recommendation failed.")
