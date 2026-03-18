@@ -17,7 +17,11 @@ const Team = ({ data, parentElement }) => {
         li.style.setProperty("--delay", delay);
         if (member.photo_url) {
             const base = member.photo_url.replace(/\.[^.]+$/, "");
-            li.style.setProperty("--photo", `image-set(url('${base}.avif') type('image/avif'), url('${base}.webp') type('image/webp'), url('${member.photo_url}') type('image/png'))`);
+            const supportsType = CSS.supports("background-image", "image-set(url('x') type('image/avif'))");
+            const photoValue = supportsType
+                ? `image-set(url('${base}.avif') type('image/avif'), url('${base}.webp') type('image/webp'), url('${member.photo_url}') type('image/png'))`
+                : `url('${base}.webp')`;
+            li.style.setProperty("--photo", photoValue);
         }
         li.innerHTML = `
       <figure>

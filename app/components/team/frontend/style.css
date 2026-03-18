@@ -150,13 +150,19 @@ li.hex-wrapper figcaption {
   height: 1em;
   margin-right: 0.3em;
   vertical-align: middle;
-  background-image: image-set(
-    url('/app/static/img/linkedin.avif') type('image/avif'),
-    url('/app/static/img/linkedin.webp') type('image/webp'),
-    url('/app/static/img/linkedin.png')  type('image/png')
-  );
+  background-image: url('/app/static/img/linkedin.webp');
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+
+@supports (background-image: image-set(url('x') type('image/avif'))) {
+  .member-linkedin::before {
+    background-image: image-set(
+      url('/app/static/img/linkedin.avif') type('image/avif'),
+      url('/app/static/img/linkedin.webp') type('image/webp'),
+      url('/app/static/img/linkedin.png')  type('image/png')
+    );
+  }
 }
 
 .member-linkedin::after {
