@@ -10,6 +10,7 @@ const Header = ({ data, setTriggerValue, parentElement, }) => {
     headerEl.innerHTML = `
     <a class="logo-link" data-page="${escapeHtml(logo_page)}" href="#" aria-label="${escapeHtml(logo_alt)}">
       ${logo_svg}
+      Recipe Inspiration
     </a>
     <nav aria-label="Main navigation">
       <ul role="list">

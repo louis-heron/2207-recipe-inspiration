@@ -52,7 +52,7 @@ vision_model_path = BASE_DIR / "Vision" / "best.pt"
 
 app.state.model = pickle.load(open(model_path, "rb"))
 app.state.vectorizer = pickle.load(open(vectorizer_path, "rb"))
-app.state.detector = IngredientDetector(str(vision_model_path))
+app.state.detector = IngredientDetector()
 
 @app.get("/", tags=["health"])
 def root() -> Dict[str, str]:
@@ -84,9 +84,6 @@ class PredictRequest(BaseModel):
 @app.post("/detect-ingredients", tags=["vision"])
 async def detect_ingredients(file: UploadFile = File(...)):
     # Basic validation: ensure it's an image
-    # This version handles 'None' safely
-    #if file.content_type and not file.content_type.startswith("image/"):
-    #    raise HTTPException(status_code=400, detail="File must be an image.")
 
     try:
         contents = await file.read()

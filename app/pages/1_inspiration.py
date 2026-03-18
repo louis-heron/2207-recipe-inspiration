@@ -1,9 +1,13 @@
 import streamlit as st
 import requests
 from PIL import Image
+from pages.multiselect import IngredientSelector
 
 st.set_page_config(page_title="AI Recipe Chef", layout="wide")
 st.title("🍳 AI Recipe Recommender")
+
+# Initialize the selector (it handles its own caching internally)
+selector = IngredientSelector()
 
 # Setup layout
 col1, col2 = st.columns([1, 1])
@@ -34,24 +38,29 @@ with col2:
 
     # If ingredients are detected, show them in a multi-select box so user can edit
     if "detected" in st.session_state:
-        selected_ingredients = st.multiselect(
-            "We found these! Add or remove as needed:",
-            options=st.session_state.detected + ["salt", "pepper", "oil"], # Add common staples
-            default=st.session_state.detected
+        #selected_ingredients = st.multiselect(
+        #    "We found these! Add or remove as needed:",
+        #    options=st.session_state.detected + ["salt", "pepper", "oil"], # Add common staples
+        #    default=st.session_state.detected
+        #)
+        selected_ingredients = selector.render(
+            label="We found these! Add or remove as needed:",
+            placeholder="Search for more ingredients..."
         )
 
         num_res = st.slider("How many recipes?", 1, 10, 5)
 
         if st.button("📖 Get Recipes"):
+            # Convert the list to the lowercase string format required by your model
+            formatted_ingredients = selector.format_for_model(selected_ingredients)
+
             # Call the Recommendation API
             payload = {"ingredients": selected_ingredients, "num_recipes": num_res}
             res = requests.post("http://localhost:8000/predict", json=payload)
 
             if res.status_code == 200:
-                recipes = res.json()["recipes"]
-                for r in recipes:
-                    with st.expander(f"⭐ {r['title']}"):
-                        st.write("**Ingredients:**", r['ingredients'])
-                        st.write("**Directions:**", r['directions'])
+                st.session_state["recipes"] = res.json()["recipes"]
+                st.session_state["ingredients_used"] = selected_ingredients
+                st.switch_page("pages/3_recipes.py")
             else:
                 st.error("Recommendation failed.")

@@ -4,10 +4,12 @@ from pathlib import Path
 import io
 from PIL import Image
 
+model_path = Path(__file__).parent / "best.pt"
+
 class IngredientDetector:
-    def __init__(self, model_path):
-        self.model_path = "Vision/best.pt"
+    def __init__(self):
         self.model = YOLO(model_path)
+            # Convert bytes to a PIL Image
 
     def detect(self, image_bytes):
         # Run results

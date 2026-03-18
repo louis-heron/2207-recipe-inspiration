@@ -6,11 +6,12 @@ const s = ({
   setTriggerValue: c,
   parentElement: r
 }) => {
-  const { logo_svg: g, logo_alt: o, logo_page: i, nav_links: n, active_page: p } = t;
+  const { logo_svg: i, logo_alt: o, logo_page: g, nav_links: n, active_page: p } = t;
   let e = r.querySelector("#app-header");
   e || (e = document.createElement("header"), e.id = "app-header", r.appendChild(e)), e.innerHTML = `
-    <a class="logo-link" data-page="${l(i)}" href="#" aria-label="${l(o)}">
-      ${g}
+    <a class="logo-link" data-page="${l(g)}" href="#" aria-label="${l(o)}">
+      ${i}
+      Recipe Inspiration
     </a>
     <nav aria-label="Main navigation">
       <ul role="list">
