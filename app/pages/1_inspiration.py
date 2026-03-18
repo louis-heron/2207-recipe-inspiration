@@ -18,11 +18,14 @@ with col1:
 
         if st.button("🔍 Detect Ingredients"):
             # Call the Detection API
-            files = {"file": uploaded_file.getvalue()}
+            #files = {"file": uploaded_file.getvalue()}
+            files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
             response = requests.post("http://localhost:8000/detect-ingredients", files=files)
 
             if response.status_code == 200:
                 st.session_state.detected = response.json()["detected_ingredients"]
+                # Update the multiselect state immediately
+                st.session_state.ing_selector = st.session_state.detected
             else:
                 st.error("Detection failed.")
 

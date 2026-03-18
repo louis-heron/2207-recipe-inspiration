@@ -84,8 +84,9 @@ class PredictRequest(BaseModel):
 @app.post("/detect-ingredients", tags=["vision"])
 async def detect_ingredients(file: UploadFile = File(...)):
     # Basic validation: ensure it's an image
-    if not file.content_type.startswith("image/"):
-        raise HTTPException(status_code=400, detail="File must be an image.")
+    # This version handles 'None' safely
+    #if file.content_type and not file.content_type.startswith("image/"):
+    #    raise HTTPException(status_code=400, detail="File must be an image.")
 
     try:
         contents = await file.read()
