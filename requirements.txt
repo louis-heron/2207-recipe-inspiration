@@ -12,3 +12,4 @@ streamlit
 fastapi
 uvicorn
 ultralytics
+python-multipart
