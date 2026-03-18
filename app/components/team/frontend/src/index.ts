@@ -36,10 +36,7 @@ const Team: FrontendRenderer<Record<string, never>, TeamData> = ({ data, parentE
 
     if (member.photo_url) {
       const base = member.photo_url.replace(/\.[^.]+$/, "")
-      li.style.setProperty(
-        "--photo",
-        `image-set(url('${base}.avif') type('image/avif'), url('${base}.webp') type('image/webp'), url('${member.photo_url}') type('image/png'))`,
-      )
+      li.style.setProperty("--photo", `url('${base}.webp')`)
     }
 
     li.innerHTML = `
