@@ -1,6 +1,7 @@
 raw_data/
 api/.env
 api/Model/*.pkl
+api/data
 
 # Node
 app/components/node_modules/
