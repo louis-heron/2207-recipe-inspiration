@@ -121,7 +121,7 @@ li.hex-wrapper figcaption {
   right: 26%;
   transform: translateY(-50%);
   margin: 0;
-  font-size: clamp(0.85rem, 2vmin, 1.05rem);
+  font-size: clamp(0.7rem, 1.5vmin, 0.85rem);
   line-height: 1.5;
   text-align: start;
   color: var(--st-background-color);
