@@ -12,6 +12,7 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+/* --- Layout --- */
 [data-testid="stMain"] {
     display: flex;
     flex-direction: column;

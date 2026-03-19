@@ -1,0 +1,151 @@
+/* ── Wrapper : layout côte à côte ────────────────── */
+.ri-upload__heading {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  color: var(--st-text-color);
+}
+
+.ri-upload__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Form ────────────────────────────────────────── */
+.ri-upload__form {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background-color: transparent;
+}
+
+/* ── Label ───────────────────────────────────────── */
+.ri-upload__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.75rem;
+  cursor: pointer;
+  color: var(--st-text-color);
+  font-weight: 600;
+  padding: 1rem 9rem 1rem 1.25rem;
+  border: 1px solid var(--st-text-color);
+  border-radius: 0.25rem;
+  position: relative;
+}
+
+.ri-upload__label::before {
+  content: "";
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--st-text-color);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04 A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04 A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+/* Faux bouton "Browse files" — absolu pour centrage sur toute la hauteur du label */
+.ri-upload__label::after {
+  content: "Browse files";
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--st-text-color);
+  background-color: var(--st-background-color);
+  border: 1px solid var(--st-text-color);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.ri-upload__label small {
+  flex-basis: 100%;
+  margin-left: calc(2rem + 0.75rem);
+  font-weight: normal;
+  font-size: 0.85em;
+}
+
+.ri-upload__label:hover,
+.ri-upload__label:focus-within,
+.ri-upload__label--dragover {
+  outline: 2px solid var(--st-text-color);
+  outline-offset: 0.2rem;
+  border-radius: 0.125rem;
+}
+
+/* Input : invisible, couvre tout le label → déclenche le dialog nativement */
+.ri-upload__input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+}
+
+/* ── Status ──────────────────────────────────────── */
+.ri-upload__status {
+  margin: 0;
+  font-size: 0.85em;
+  color: var(--st-text-color);
+}
+
+/* ── Detect button ───────────────────────────────── */
+.ri-upload__detect {
+  align-self: flex-start;
+  cursor: pointer;
+  color: var(--st-background-color);
+  background-color: var(--st-text-color);
+  border: 1px solid var(--st-text-color);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.ri-upload__detect::before {
+  content: "🔍";
+  speak: never;
+  margin-right: 0.4em;
+}
+
+.ri-upload__detect:hover,
+.ri-upload__detect:focus-visible {
+  outline: 2px solid var(--st-text-color);
+  outline-offset: 0.2rem;
+}
+
+/* ── Preview ─────────────────────────────────────── */
+.ri-upload__preview {
+  flex: 1;
+  margin: 0;
+}
+
+.ri-upload__preview img {
+  width: 100%;
+  border-radius: 0.25rem;
+  border: 1px solid var(--st-text-color);
+  display: block;
+}
+
+.ri-upload__preview figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85em;
+  color: var(--st-text-color);
+}
