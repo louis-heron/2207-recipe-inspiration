@@ -6,6 +6,7 @@
   padding: 0.75rem 1.5rem;
   background: var(--st-background-color);
   color: var(--st-text-color);
+  box-shadow: 0 -6px 6px -6px color-mix(in srgb, var(--st-text-color) 30%, transparent);
   font-family: var(--st-font), system-ui, sans-serif;
   font-size: 0.85rem;
   box-sizing: border-box;

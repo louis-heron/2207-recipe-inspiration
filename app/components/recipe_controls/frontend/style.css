@@ -1,0 +1,56 @@
+/* ── Form ────────────────────────────────────────── */
+.ri-controls__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background-color: transparent;
+}
+
+/* ── Label ───────────────────────────────────────── */
+.ri-controls__label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--st-text-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ── Output ──────────────────────────────────────── */
+.ri-controls__output {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ── Slider ──────────────────────────────────────── */
+.ri-controls__slider {
+  width: 100%;
+  accent-color: var(--st-text-color);
+  cursor: pointer;
+}
+
+/* ── Submit button ───────────────────────────────── */
+.ri-controls__submit {
+  align-self: flex-start;
+  cursor: pointer;
+  color: var(--st-background-color);
+  background-color: var(--st-text-color);
+  border: 1px solid var(--st-text-color);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.ri-controls__submit::before {
+  content: "📖";
+  speak: never;
+  margin-right: 0.4em;
+}
+
+.ri-controls__submit:hover,
+.ri-controls__submit:focus-visible {
+  outline: 2px solid var(--st-text-color);
+  outline-offset: 0.2rem;
+}
