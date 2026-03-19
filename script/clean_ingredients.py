@@ -47,12 +47,30 @@ class CleanIng():
             return False
         return True
 
+
     def clean_single_ingredient(self, ing: str) -> str:
-        """Normalizes text: lowercase, removes non-alphas, and strips articles."""
-        if not isinstance(ing, str): return ""
+        """Normalizes text and filters out brands/non-food."""
+        if not isinstance(ing, str):
+            return ""
+
+        # 1. Lowercase and basic cleaning
         ing = ing.lower().strip()
         ing = re.sub(r"[^a-z\s\-]", "", ing)
-        ing = re.sub(r"^(an|the|some)\s+", "", ing).strip()
+
+        # 2. Remove prefixes at the START
+        prefix_pattern = r"^(a|an|all-purpose|freshly|grated|american|-|additional|zest|one|chopped|pinch|of|diced|sliced|the|some|c)\s+"
+        ing = re.sub(prefix_pattern, "", ing).strip()
+
+        # 3. Remove suffixes at the END (The specific change you wanted)
+        ing = re.sub(r"\s+(sliced|chopped|diced)$", "", ing).strip()
+
+        # 4. Check against your Enum lists
+        # If it's a brand or non-food, we return an EMPTY string
+        if ing in self.DROPPED_INGREDIENTS or \
+           ing in self.KNOWN_BRANDS or \
+           ing in self.NON_FOOD:
+            return ""
+
         return ing
 
     def filter_redundant(self, ing_list: List[str]) -> List[str]:
