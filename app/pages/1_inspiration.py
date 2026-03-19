@@ -35,7 +35,7 @@ if file_info and detect_clicked:
     response = requests.post(f"{API_URL}/detect-ingredients", files=files)
 
     if response.status_code == 200:
-        detected = response.json()["detected_ingredients"]
+        detected = [ing.lower() for ing in response.json()["detected_ingredients"]]
         st.session_state["ing_selected"] = detected
         st.session_state["ing_version"] = st.session_state.get("ing_version", 0) + 1
     else:
