@@ -22,9 +22,9 @@ TEAM: list[TeamMember] = [
     {
         "name": "Pauline Le\u00a0Biez",
         "photo_url": _b64_png("pauline_le-biez.png"),
-        "quote": "A short quote from this person.",
-        "cite": "Unknown",
-        "linkedin": "#",
+        "quote": "Ventre affamé n'a point d'oreilles",
+        "cite": "Caton l'ancien",
+        "linkedin": "https://www.linkedin.com/in/paulinelebiez/",
     },
     {
         "name": "Yoann Fortin",
