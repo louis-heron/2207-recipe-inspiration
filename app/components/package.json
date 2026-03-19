@@ -5,6 +5,10 @@
     "shared",
     "header/frontend",
     "footer/frontend",
-    "team/frontend"
+    "team/frontend",
+    "file_uploader/frontend",
+    "ingredient_selector/frontend",
+    "recipe_controls/frontend",
+    "recipes/frontend"
   ]
 }
