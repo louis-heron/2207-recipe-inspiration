@@ -15,15 +15,15 @@ TEAM: list[TeamMember] = [
     {
         "name": "Louis Héron",
         "photo_url": _b64_png("louis_heron.png"),
-        "quote": "A short quote from this person.",
-        "cite": "Unknown",
-        "linkedin": "#",
+        "quote": "To cook well, you need good ingredients, a discerning palate, passion, and friends.",
+        "cite": "Pierre Perret",
+        "linkedin": "https://www.linkedin.com/in/louis-h%C3%A9ron/",
     },
     {
         "name": "Pauline Le\u00a0Biez",
         "photo_url": _b64_png("pauline_le-biez.png"),
-        "quote": "Ventre affamé n'a point d'oreilles",
-        "cite": "Caton l'ancien",
+        "quote": "A hungry stomach has no ears.",
+        "cite": "Cato the Elder",
         "linkedin": "https://www.linkedin.com/in/paulinelebiez/",
     },
     {
